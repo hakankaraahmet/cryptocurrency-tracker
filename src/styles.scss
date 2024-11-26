@@ -9,6 +9,11 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
@@ -20,7 +25,7 @@ $cryptocurrency-tracker-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$cryptocurrency-tracker-theme: mat.define-light-theme((
+$cryptocurrency-tracker-theme: mat.define-dark-theme((
   color: (
     primary: $cryptocurrency-tracker-primary,
     accent: $cryptocurrency-tracker-accent,
