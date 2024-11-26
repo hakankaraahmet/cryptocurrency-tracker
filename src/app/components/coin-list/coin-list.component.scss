@@ -1,0 +1,26 @@
+  .banner{
+    background-image: url("../../../assets/banner.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 40%;
+    width: 100%;
+
+  }
+  .marquee-content {
+    animation: marqueeAnimation 20s linear infinite;
+  }
+  
+  @keyframes marqueeAnimation {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  .stop-animation .marquee-content {
+    animation-play-state: paused;
+  }
+  
