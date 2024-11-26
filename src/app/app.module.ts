@@ -15,8 +15,8 @@ import { ComponentsModule } from './components/components.module';
     FormsModule,
     ComponentsModule,
   ],
-  exports: [FormsModule],
   declarations: [AppComponent],
+  exports: [FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
