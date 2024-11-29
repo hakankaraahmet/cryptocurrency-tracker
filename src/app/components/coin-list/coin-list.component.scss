@@ -17,19 +17,23 @@
   left: 0px;
   opacity: 0.65;
 }
-.marquee-content {
-  animation: marqueeAnimation 5s linear infinite;
+.slide-track {
+  animation: scroll 40s linear infinite;
 }
 
-@keyframes marqueeAnimation {
+@keyframes scroll {
   0% {
-    transform: translateX(100%);
+    transform: translateX(0);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 
-.stop-animation .marquee-content {
+.paused {
   animation-play-state: paused;
+}
+
+.running {
+  animation-play-state: running;
 }
