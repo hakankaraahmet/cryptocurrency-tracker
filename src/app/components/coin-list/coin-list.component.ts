@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Currency } from 'src/app/models/Currency.model';
 import { ApiService } from 'src/app/service/api.service';
+// table
+import { AfterViewInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-coin-list',
@@ -10,6 +17,18 @@ import { ApiService } from 'src/app/service/api.service';
 export class CoinListComponent implements OnInit {
   isScrolling = true;
   allCurrencies: Currency[] = [];
+  // table
+  dataSource!: MatTableDataSource<Currency>;
+  displayedColumns: string[] = [
+    'symbol',
+    'current_price',
+    'price_change_percentage_24h',
+    'market_cap',
+  ];
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
   bannerCurrencies: any = [
     {
       image:
@@ -102,7 +121,13 @@ export class CoinListComponent implements OnInit {
 
   getAllData() {
     this.apiService.getCurrencyData('USD').subscribe({
-      next: (res) => (this.allCurrencies = Object.values(res)),
+      next: (res) => (
+        (this.allCurrencies = Object.values(res)),
+        // table
+        (this.dataSource = new MatTableDataSource(Object.values(res))),
+        (this.dataSource.paginator = this.paginator),
+        (this.dataSource.sort = this.sort)
+      ),
       error: (err) => {
         throw new Error(err);
       },
@@ -128,5 +153,15 @@ export class CoinListComponent implements OnInit {
 
   startScroll() {
     this.isScrolling = true;
+  }
+
+  // table
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 }
