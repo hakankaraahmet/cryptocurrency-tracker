@@ -1,0 +1,30 @@
+// table
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  width: 25%;
+}
+
+:host ::ng-deep .mat-sort-header-content {
+  color: #fff;
+}
+
+:host ::ng-deep .mat-paginator-outer-container {
+  background-color: rgb(36, 37, 37);
+}
+
+th.mat-header-cell {
+  background-color: #009688;
+}
+
+:host ::ng-deep tr.mat-row {
+  height: 70px;
+}
