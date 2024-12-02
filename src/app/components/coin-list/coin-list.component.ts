@@ -101,10 +101,6 @@ export class CoinListComponent implements OnInit {
     this.getBannerData();
   }
 
-  ngDoCheck() {
-    console.log('this.allCurrencies :>> ', this.allCurrencies);
-  }
-
   getAllData() {
     //Alert loading eklenecek
     this.apiService.getCurrencyData('USD').subscribe({

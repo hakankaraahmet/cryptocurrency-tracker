@@ -1,17 +1,14 @@
 import {
   Component,
-  AfterViewInit,
   ViewChild,
   Input,
-  OnInit,
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, MatSortModule } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Currency } from 'src/app/models/Currency.model';
 
 @Component({
@@ -32,7 +29,7 @@ export class CoinTableComponent implements OnChanges {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['data'] && changes['data'].currentValue) {
@@ -61,5 +58,9 @@ export class CoinTableComponent implements OnChanges {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  goToDetails(row: Currency) {
+    this.router.navigateByUrl(`coin-detail/${row.id}`);
   }
 }
