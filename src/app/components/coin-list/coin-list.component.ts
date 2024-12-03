@@ -12,7 +12,7 @@ export class CoinListComponent implements OnInit {
   isScrolling = true;
   allCurrencies: Currency[] = [];
   bannerCurrencies: any = [];
-  currency: string = 'USD';
+  currencyName: string = 'USD';
 
   constructor(
     private apiService: ApiService,
@@ -23,7 +23,7 @@ export class CoinListComponent implements OnInit {
     this.getAllData();
     this.getBannerData();
     this.currencyService.getCurrency().subscribe((val) => {
-      this.currency = val;
+      this.currencyName = val;
       this.getAllData();
       this.getBannerData();
     });
@@ -33,7 +33,7 @@ export class CoinListComponent implements OnInit {
 
   getAllData() {
     //Alert loading eklenecek
-    this.apiService.getCurrencyData(this.currency).subscribe({
+    this.apiService.getCurrencyData(this.currencyName).subscribe({
       next: (res) => (this.allCurrencies = Object.values(res)),
       error: (err) => {
         throw new Error(err);
@@ -43,9 +43,9 @@ export class CoinListComponent implements OnInit {
 
   getBannerData() {
     //Alert loading eklenecek
-    this.apiService.getTrendingCurrency(this.currency).subscribe({
+    this.apiService.getTrendingCurrency(this.currencyName).subscribe({
       next: (res) => (
-        console.log('this.currency :>> ', this.currency),
+        console.log('this.currency :>> ', this.currencyName),
         (this.bannerCurrencies = Object.values(res))
       ),
       error: (err) => {

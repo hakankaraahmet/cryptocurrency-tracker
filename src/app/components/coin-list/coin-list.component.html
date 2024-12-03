@@ -39,7 +39,7 @@
                 </span>
               </h5>
               <p class="text-white text-xl font-bold text-center">
-                {{ currency.current_price | currency }}
+                {{ currency.current_price | currency : currencyName }}
               </p>
             </div>
           </div>
@@ -70,7 +70,7 @@
                 </span>
               </h5>
               <p class="text-white text-xl font-bold text-center">
-                {{ currency.current_price | currency }}
+                {{ currency.current_price | currency : currencyName }}
               </p>
             </div>
           </div>
@@ -80,4 +80,4 @@
   </div>
 </div>
 
-<app-coin-table [data]="bannerCurrencies" />
+<app-coin-table [data]="bannerCurrencies" [currencyName]="currencyName" />

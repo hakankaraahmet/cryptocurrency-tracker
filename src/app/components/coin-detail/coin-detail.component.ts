@@ -13,7 +13,7 @@ export class CoinDetailComponent implements OnInit {
   coinData!: any;
   coinId!: string;
   days: number = 1;
-  currency: string = 'USD'; // Alert currency durumlari duzenlenecek
+  currencyName: string = 'USD';
   //Chart
   @ViewChild(BaseChartDirective) coinLineChart!: BaseChartDirective;
   public lineChartData: ChartConfiguration['data'] = {
@@ -46,20 +46,22 @@ export class CoinDetailComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private currencyService: CurrencyService
   ) {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.coinId = params.get('id')!;
     });
   }
 
-  ngDoCheck() {
-    console.log('lineChartData :>> ', this.lineChartData);
-  }
-
   ngOnInit() {
     this.getCoinData();
     this.getGraphData();
+    this.currencyService.getCurrency().subscribe((val) => {
+      this.currencyName = val;
+      this.getCoinData();
+      this.getGraphData();
+    });
   }
 
   getCoinData() {
@@ -74,16 +76,15 @@ export class CoinDetailComponent implements OnInit {
   getGraphData(days: number = this.days) {
     this.days = days;
     this.apiService
-      .getGrpahicalCurrencyData(this.coinId, this.currency, this.days)
+      .getGraphicalCurrencyData(this.coinId, this.currencyName, this.days)
       .subscribe((res: any) => {
-        console.log('res :>> ', res);
         setTimeout(() => {
           this.coinLineChart.chart?.update();
         }, 200);
-        this.lineChartData.datasets[0].data = res.prices.map((a: any) => {
+        this.lineChartData.datasets[0].data = res?.prices.map((a: any) => {
           return a[1];
         });
-        this.lineChartData.labels = res.prices.map((a: any) => {
+        this.lineChartData.labels = res?.prices.map((a: any) => {
           let date = new Date(a[0]);
           let time =
             date.getHours() > 12
