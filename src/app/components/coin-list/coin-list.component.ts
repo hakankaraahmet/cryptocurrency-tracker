@@ -20,13 +20,13 @@ export class CoinListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getAllData();
-    this.getBannerData();
-    this.currencyService.getCurrency().subscribe((val) => {
-      this.currencyName = val;
-      this.getAllData();
-      this.getBannerData();
-    });
+    // this.getAllData();
+    // this.getBannerData();
+    // this.currencyService.getCurrency().subscribe((val) => {
+    //   this.currencyName = val;
+    //   this.getAllData();
+    //   this.getBannerData();
+    // });
   }
 
   ngDoCheck() {}

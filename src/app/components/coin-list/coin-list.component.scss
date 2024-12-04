@@ -1,3 +1,4 @@
+@use "src/styles" as *;
 .banner {
   position: relative;
   height: 45%;
@@ -19,6 +20,9 @@
 }
 .slide-track {
   animation: scroll 40s linear infinite;
+}
+.title {
+  color: $primary-yellow;
 }
 
 @keyframes scroll {

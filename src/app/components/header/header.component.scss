@@ -1,3 +1,23 @@
+@use "src/styles" as *;
+.title {
+  color: $primary-yellow;
+}
+
 .example-spacer {
-    flex: 1 1 auto;
-  }
+  flex: 1 1 auto;
+}
+
+.enabled-trigger-text-color {
+  color: white;
+  font-weight: bold;
+}
+
+.mat-option {
+  color: white !important;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.test {
+  background-color: red;
+}
