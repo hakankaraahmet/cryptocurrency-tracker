@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Currency } from 'src/app/models/Currency.model';
 import { ApiService } from 'src/app/service/api.service';
 import { CurrencyService } from 'src/app/service/currency.service';
@@ -13,42 +14,50 @@ export class CoinListComponent implements OnInit {
   allCurrencies: Currency[] = [];
   bannerCurrencies: any = [];
   currencyName: string = 'USD';
+  isAllDataLoading: boolean = false;
+  isBannerDataLoading: boolean = false;
 
   constructor(
     private apiService: ApiService,
-    private currencyService: CurrencyService
+    private currencyService: CurrencyService,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    // this.getAllData();
-    // this.getBannerData();
-    // this.currencyService.getCurrency().subscribe((val) => {
-    //   this.currencyName = val;
-    //   this.getAllData();
-    //   this.getBannerData();
-    // });
+    this.getAllData();
+    this.getBannerData();
+    this.currencyService.getCurrency().subscribe((val) => {
+      this.currencyName = val;
+      this.getAllData();
+      this.getBannerData();
+    });
   }
 
   ngDoCheck() {}
 
   getAllData() {
-    //Alert loading eklenecek
+    this.isAllDataLoading = true;
     this.apiService.getCurrencyData(this.currencyName).subscribe({
-      next: (res) => (this.allCurrencies = Object.values(res)),
+      next: (res) => {
+        (this.allCurrencies = Object.values(res)),
+          (this.isAllDataLoading = false);
+      },
       error: (err) => {
+        this.isAllDataLoading = false;
         throw new Error(err);
       },
     });
   }
 
   getBannerData() {
-    //Alert loading eklenecek
+    this.isBannerDataLoading = true;
     this.apiService.getTrendingCurrency(this.currencyName).subscribe({
       next: (res) => (
-        console.log('this.currency :>> ', this.currencyName),
-        (this.bannerCurrencies = Object.values(res))
+        (this.bannerCurrencies = Object.values(res)),
+        (this.isBannerDataLoading = false)
       ),
       error: (err) => {
+        this.isBannerDataLoading = false;
         throw new Error(err);
       },
     });
@@ -64,5 +73,9 @@ export class CoinListComponent implements OnInit {
 
   startScroll() {
     this.isScrolling = true;
+  }
+
+  goToDetailPage(id: string) {
+    this.router.navigateByUrl(`coin-detail/${id}`);
   }
 }

@@ -1,85 +1,97 @@
 <div class="banner">
   <div class="container mx-auto px-24">
     <div class="header pt-4 text-white flex flex-col items-center">
-      <h1 class="text-3xl font-bold absolute top-4 title">
+      <h1 class="text-xl lg:text-3xl font-bold absolute top-4 title">
         Crypto Checker by Hakan
       </h1>
-      <h6 class="text-sm mt-3 absolute top-12">
+      <h6 class="text-xs lg:text-sm mt-3 absolute top-12">
         Check all the crypto currency latest updates
       </h6>
     </div>
     <div
       class="sub-header absolute top-20 left-1/2 transform -translate-x-1/2 w-full"
     >
-      <div
-        [ngClass]="{ paused: !isScrolling, running: isScrolling }"
-        class="slide-track flex gap-[5rem] w-max relative overflow-hidden gap-x-8 justify-center my-4"
-      >
+      <ng-container *ngIf="isBannerDataLoading; else dataLoaded">
+        <div class="border-2 mt-8 w-full flex justify-center items-center">
+          <mat-spinner></mat-spinner>
+        </div>
+      </ng-container>
+      <ng-template #dataLoaded>
         <div
-          (mouseover)="stopScroll()"
-          (mouseleave)="startScroll()"
-          *ngFor="let currency of bannerCurrencies; let i = index"
-          class="slide-item"
+          [ngClass]="{ paused: !isScrolling, running: isScrolling }"
+          class="slide-track flex gap-[5rem] w-max relative overflow-hidden gap-x-8 justify-center lg:my-4"
         >
           <div
-            [ngClass]="{
-              'flex-shrink-0 flex-grow-0 flex-auto rounded-2xl  p-4  ': true
-            }"
+            (mouseover)="stopScroll()"
+            (mouseleave)="startScroll()"
+            *ngFor="let currency of bannerCurrencies; let i = index"
+            class="slide-item cursor-pointer"
+            (click)="goToDetailPage(currency.name)"
           >
-            <img
-              [src]="currency.image"
-              [alt]="currency.name"
-              class="mx-auto w-20 h-20"
-            />
-            <div>
-              <h5
-                class="text-white text-3xl font-bold flex flex-col text-center"
-              >
-                {{ currency.symbol | uppercase }}
-                <span class="text-red-500">
-                  {{ currency.market_cap_change_percentage_24h }} %
-                </span>
-              </h5>
-              <p class="text-white text-xl font-bold text-center">
-                {{ currency.current_price | currency : currencyName }}
-              </p>
+            <div
+              [ngClass]="{
+                'flex-shrink-0 flex-grow-0 flex-auto rounded-2xl  p-4  ': true
+              }"
+            >
+              <img
+                [src]="currency.image"
+                [alt]="currency.name"
+                class="mx-auto w-20 h-20"
+              />
+              <div>
+                <h5
+                  class="text-white text-3xl font-bold flex flex-col text-center"
+                >
+                  {{ currency.symbol | uppercase }}
+                  <span class="text-red-500">
+                    {{ currency.market_cap_change_percentage_24h }} %
+                  </span>
+                </h5>
+                <p class="text-white text-xl font-bold text-center">
+                  {{ currency.current_price | currency : currencyName }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            *ngFor="let currency of bannerCurrencies; let i = index"
+            class="slide-item"
+            (mouseover)="stopScroll()"
+            (mouseleave)="startScroll()"
+          >
+            <div
+              [ngClass]="{
+                'flex-shrink-0 flex-grow-0 flex-auto rounded-2xl p-4 ': true
+              }"
+            >
+              <img
+                [src]="currency.image"
+                [alt]="currency.name"
+                class="mx-auto w-20 h-20"
+              />
+              <div>
+                <h5
+                  class="text-white text-3xl font-bold flex flex-col text-center"
+                >
+                  {{ currency.symbol | uppercase }}
+                  <span class="text-red-500">
+                    {{ currency.market_cap_change_percentage_24h }} %
+                  </span>
+                </h5>
+                <p class="text-white text-xl font-bold text-center">
+                  {{ currency.current_price | currency : currencyName }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        <div
-          *ngFor="let currency of bannerCurrencies; let i = index"
-          class="slide-item"
-          (mouseover)="stopScroll()"
-          (mouseleave)="startScroll()"
-        >
-          <div
-            [ngClass]="{
-              'flex-shrink-0 flex-grow-0 flex-auto rounded-2xl p-4 ': true
-            }"
-          >
-            <img
-              [src]="currency.image"
-              [alt]="currency.name"
-              class="mx-auto w-20 h-20"
-            />
-            <div>
-              <h5
-                class="text-white text-3xl font-bold flex flex-col text-center"
-              >
-                {{ currency.symbol | uppercase }}
-                <span class="text-red-500">
-                  {{ currency.market_cap_change_percentage_24h }} %
-                </span>
-              </h5>
-              <p class="text-white text-xl font-bold text-center">
-                {{ currency.current_price | currency : currencyName }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      </ng-template>
     </div>
   </div>
 </div>
 
-<app-coin-table [data]="allCurrencies" [currencyName]="currencyName" />
+<app-coin-table
+  [data]="allCurrencies"
+  [isAllDataLoading]="isAllDataLoading"
+  [currencyName]="currencyName"
+/>

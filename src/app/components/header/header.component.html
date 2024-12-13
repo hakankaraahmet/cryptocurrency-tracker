@@ -1,15 +1,19 @@
 <mat-toolbar class="flex justify-between items-center overflow-hidden">
-  <div class="flex gap-x-4 items-center">
+  <div
+    class="flex gap-x-4 items-center cursor-pointer"
+    (click)="goToHomePage()"
+  >
     <img
       src="/assets/favicon.svg"
       alt="Cryptocurrency Tracker"
       class="w-8 h-8"
     />
-    <span class="font-bold uppercase title" (click)="goToHomePage()"
+    <span
+      class="font-bold uppercase title text-xs w-1/2 lg:w-full lg:text-base whitespace-normal"
       >Cryptocurrency Tracker</span
     >
   </div>
-  <mat-form-field class="mt-6 scale-90">
+  <mat-form-field class="mt-6 scale-90 w-32 lg:w-fit">
     <mat-select
       class="enabled-trigger-text-color"
       (valueChange)="sendCurrency($event)"

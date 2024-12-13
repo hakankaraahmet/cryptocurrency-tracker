@@ -19,6 +19,7 @@ import { Currency } from 'src/app/models/Currency.model';
 export class CoinTableComponent implements OnChanges {
   @Input() data!: Currency[];
   @Input() currencyName!: string;
+  @Input() isAllDataLoading!: boolean;
   displayedColumns: string[] = [
     'symbol',
     'current_price',
