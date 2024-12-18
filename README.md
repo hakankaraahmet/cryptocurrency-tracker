@@ -1,6 +1,6 @@
 # CryptocurrencyTracker
 
-#https://cryptocurrency-tracker-hakankaraahmets-projects.vercel.app/coin-list
+# https://cryptocurrency-tracker-hakankaraahmets-projects.vercel.app/coin-list
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.6.
 
