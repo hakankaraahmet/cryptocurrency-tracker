@@ -12,7 +12,7 @@
       class="sub-header absolute top-20 left-1/2 transform -translate-x-1/2 w-full"
     >
       <ng-container *ngIf="isBannerDataLoading; else dataLoaded">
-        <div class="border-2 mt-8 w-full flex justify-center items-center">
+        <div class="mt-8 w-full flex justify-center items-center">
           <mat-spinner></mat-spinner>
         </div>
       </ng-container>
@@ -26,7 +26,7 @@
             (mouseleave)="startScroll()"
             *ngFor="let currency of bannerCurrencies; let i = index"
             class="slide-item cursor-pointer"
-            (click)="goToDetailPage(currency.name)"
+            (click)="goToDetailPage(currency.id)"
           >
             <div
               [ngClass]="{

@@ -75,7 +75,7 @@ export class CoinListComponent implements OnInit {
     this.isScrolling = true;
   }
 
-  goToDetailPage(id: string) {
-    this.router.navigateByUrl(`coin-detail/${id}`);
+  goToDetailPage(name: string) {
+    this.router.navigateByUrl(`coin-detail/${name}`);
   }
 }
