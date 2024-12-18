@@ -14,6 +14,7 @@ export class CoinDetailComponent implements OnInit {
   coinId!: string;
   days: number = 1;
   currencyName: string = 'USD';
+  isDataLoading: boolean = false;
   //Chart
   @ViewChild(BaseChartDirective) coinLineChart!: BaseChartDirective;
   public lineChartData: ChartConfiguration['data'] = {
@@ -22,11 +23,11 @@ export class CoinDetailComponent implements OnInit {
         data: [],
         label: `Price Trends`,
         backgroundColor: 'rgba(148,159,177,0.2)',
-        borderColor: '#009688',
-        pointBackgroundColor: '#009688',
-        pointBorderColor: '#009688',
-        pointHoverBackgroundColor: '#009688',
-        pointHoverBorderColor: '#009688',
+        borderColor: '#ffc108',
+        pointBackgroundColor: '#ffc108',
+        pointBorderColor: '#ffc108',
+        pointHoverBackgroundColor: '#ffc108',
+        pointHoverBorderColor: '#ffc108',
       },
     ],
     labels: [],
@@ -53,6 +54,9 @@ export class CoinDetailComponent implements OnInit {
       this.coinId = params.get('id')!;
     });
   }
+  ngDoCheck() {
+    console.log('this.days :>> ', this.days);
+  }
 
   ngOnInit() {
     this.getCoinData();
@@ -65,9 +69,11 @@ export class CoinDetailComponent implements OnInit {
   }
 
   getCoinData() {
+    this.isDataLoading = true;
     this.apiService.getCurrencyById(this.coinId).subscribe({
-      next: (res) => (this.coinData = res),
+      next: (res) => ((this.coinData = res), (this.isDataLoading = false)),
       error: (err) => {
+        this.isDataLoading = false;
         throw new Error(err);
       },
     });

@@ -43,7 +43,6 @@
   }
 }
 
-//#009688
 .btn-custom {
   color: #fff;
   background: transparent;
@@ -53,11 +52,11 @@
   width: 23%;
 }
 
-.btn-custom:focus {
-  background: #009688;
+.btn-custom-active {
+  background: $primary-yellow;
   font-weight: 700;
   font-size: 18px;
-  border: 1px solid #009688;
+  border: 1px solid $primary-yellow;
 }
 
 * {
